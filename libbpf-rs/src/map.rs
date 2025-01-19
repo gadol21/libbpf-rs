@@ -115,6 +115,11 @@ impl<'obj> OpenMap<'obj> {
     pub fn autocreate(&self) -> bool {
         unsafe { libbpf_sys::bpf_map__autocreate(self.ptr.as_ptr()) }
     }
+
+    /// Retrieve map flags
+    pub fn map_flags(&self) -> u32 {
+        unsafe { libbpf_sys::bpf_map__map_flags(self.ptr.as_ptr()) }
+    }
 }
 
 impl<'obj> OpenMapMut<'obj> {
