@@ -19,6 +19,7 @@
 - Added `ProgramOutput::duration` field which represent the average
   duration per repetition
 - Added `RingBuffer::consume_raw_n` method to consume up to N items
+- Added `verified_insns` attribute to `query::ProgramInfo` type
 
 
 0.25.0-beta.1
