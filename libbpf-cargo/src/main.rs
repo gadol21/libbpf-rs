@@ -58,6 +58,9 @@ pub struct ClangOpts {
     /// Additional arguments to pass to `clang`.
     #[arg(long, value_parser)]
     clang_args: Vec<OsString>,
+    /// BPF target triple for clang (e.g., "bpf", "bpfeb", "bpfel").
+    #[arg(long, value_parser)]
+    bpf_target: Option<String>,
 }
 
 /// cargo-libbpf is a cargo subcommand that helps develop and build eBPF (BPF) programs.
@@ -131,8 +134,14 @@ fn main() -> Result<()> {
                     ClangOpts {
                         clang_path,
                         clang_args,
+                        bpf_target,
                     },
-            } => build::build_project(manifest_path.as_deref(), clang_path.as_deref(), clang_args),
+            } => build::build_project(
+                manifest_path.as_deref(),
+                clang_path.as_deref(),
+                clang_args,
+                bpf_target.as_deref(),
+            ),
             Command::Gen {
                 manifest_path,
                 rustfmt_path,
@@ -148,6 +157,7 @@ fn main() -> Result<()> {
                     ClangOpts {
                         clang_path,
                         clang_args,
+                        bpf_target,
                     },
                 cargo_build_args,
                 rustfmt_path,
@@ -155,6 +165,7 @@ fn main() -> Result<()> {
                 manifest_path.as_deref(),
                 clang_path.as_deref(),
                 clang_args,
+                bpf_target.as_deref(),
                 cargo_build_args,
                 rustfmt_path.as_deref(),
             ),
